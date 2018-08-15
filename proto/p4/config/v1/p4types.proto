@@ -57,6 +57,7 @@ message P4TypeInfo {
   map<string, P4EnumTypeSpec> enums = 4;
   P4ErrorTypeSpec error = 5;
   map<string, P4SerializableEnumTypeSpec> serializable_enums = 6;
+  map<string, P4NewTypeSpec> new_types = 7;
 }
 
 // Describes a P4_16 type.
@@ -73,6 +74,7 @@ message P4DataTypeSpec {
     P4NamedType enum = 9;
     P4ErrorType error = 10;
     P4NamedType serializable_enum = 11;
+    P4NamedType new_type = 12;
   }
 }
 
@@ -181,6 +183,19 @@ message P4SerializableEnumTypeSpec {
 // program.
 message P4ErrorTypeSpec {
   repeated string members = 1;
+}
+
+message P4NewTypeTranslation {
+  int32 sdn_bitwidth = 1;  // or different name
+}
+
+// New types introduced with the "type" keyword
+message P4NewTypeSpec {
+  P4DataTypeSpec original_type = 1;
+  // or we limit support to bitstrings?
+  // P4BitstringLikeTypeSpec original_type = 1;
+  P4NewTypeTranslation translation = 2;  // int<W> and bit<W> only?
+  repeated string annotations = 3;
 }
 
 // End of P4 type specs --------------------------------------------------------
