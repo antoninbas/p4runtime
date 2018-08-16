@@ -1,0 +1,11 @@
+FROM p4lang/madoko-debian:sid-with-fonts
+LABEL maintainer="P4 API Working Group <p4-dev@lists.p4.org>"
+LABEL description="Dockerfile used for building the Madoko specification"
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends software-properties-common && \
+    apt-get install -y --no-install-recommends libreoffice && \
+    apt-get autoremove --purge -y && \
+    rm -rf /var/cache/apt/* /var/lib/apt/lists/*
+
+WORKDIR /usr/src/p4-spec
